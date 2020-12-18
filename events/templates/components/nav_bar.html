@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightskyblue">
+    <a class="navbar-brand" href="{% url "index" %}">JiX</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'events:feed' %}">Events</a>
+            </li>
+            {% if user.is_superuser %}
+            <li>
+                <a class="nav-link" href="{% url 'report:feed' %}">Reports</a>
+            </li>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:profile' user.username %}">Hello, {{ user.first_name | capfirst }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Sign out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Sign in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="{% url 'register' %}">Sign up</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
